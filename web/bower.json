@@ -1,0 +1,20 @@
+{
+  "name": "poc-angularjs-rest-bd",
+  "version": "1.0.0",
+  "authors": [
+    "Rafael Lossurdo <lossurdo@gmail.com>"
+  ],
+  "description": "Prova de conceito para utilização de AngularJS, RESTful, 2ª e 3ª camadas com persistência em banco, para disciplina de PPI2 da FSPOA",
+  "homepage": "http://github.com/lossurdo",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
