@@ -2,10 +2,12 @@ package com.senac.seriadomodel.auth;
 
 import com.auth0.jwt.JWTSigner;
 import com.auth0.jwt.JWTVerifier;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -16,14 +18,19 @@ import javax.ws.rs.ext.Provider;
 import org.apache.log4j.Logger;
 
 /**
- *
- * @author lossurdo
+ * 
+ * @see https://jwt.io/ e https://github.com/auth0/java-jwt
+ * @author lossurdo 
  */
 @Provider
 public class AuthFilter implements ContainerRequestFilter, ContainerResponseFilter {
 
-    private static final Logger logger = Logger.getLogger(AuthFilter.class);
-    private static final String CHAVE_HMAC = "jn2[349q3*TRdaY";
+    public static final Logger logger = Logger.getLogger(AuthFilter.class);
+    
+    /**
+     * Chave PRINCIPAL de criptografia
+     */
+    protected static final String CHAVE_HMAC = "jn2[349q3*TRdaY";
     
     @Context
     private HttpServletRequest servletRequest;
@@ -31,47 +38,67 @@ public class AuthFilter implements ContainerRequestFilter, ContainerResponseFilt
     @Override
     public void filter(ContainerRequestContext requestContext) {
         logger.debug("Filtrando REQUEST da chamada REST");
+        
+        // TOKEN informado
+        if(informadoHeader("token", requestContext)) {
+            logger.debug("Verificando token informado");
+            String token = requestContext.getHeaderString("token");
+            JWTVerifier verifier = new JWTVerifier(CHAVE_HMAC);
+            try {
+                Map<String, Object> payload = verifier.verify(token);
+                logger.debug("Token verificado");
+                
+                String ip = payload.get("ip").toString();
+                if(!servletRequest.getRemoteAddr().equals(ip)) {
+                    logger.warn("Validação de token inválida: ENDEREÇO IP INCORRETO");
+                    throw new WebApplicationException(Response.Status.FORBIDDEN);
+                }
+                
+                TokenControl.getInstance().revalidarToken(token);
+                logger.debug("Revalidada data do Token");
+            } catch (Exception ex) {
+                logger.warn("Token inválido: " + ex.getMessage());
+                throw new WebApplicationException(Response.Status.FORBIDDEN);
+            }
+        }
+        
+        // HEADER informado incorretamente
+        else if(!informadoHeader("usuario", requestContext) 
+                || !informadoHeader("senha", requestContext)) {
+            logger.warn("FORBIDDEN; HEADER obrigatório não informado!");
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
+        } 
+        
     }
 
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
         logger.debug("Filtrando REQUEST/RESPONSE da chamada REST");
 
-        // deve validar usuário e senha e criar token
-        if (requestContext.getHeaderString("usuario") != null
-                && requestContext.getHeaderString("senha") != null) {
-            
+        
+        // USUÁRIO e SENHA informados
+        if(informadoHeader("usuario", requestContext)
+                && informadoHeader("senha", requestContext)) {
+
             // valida usuário e senha em uma base de dados, se ok cria o token
             
             Map<String, Object> payload = new HashMap<>();
             payload.put("usuario", requestContext.getHeaderString("usuario"));
-            payload.put("data", new Date());
+            payload.put("data", new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
             payload.put("ip", servletRequest.getRemoteAddr());
             logger.debug("PAYLOAD: " + payload);
             
             JWTSigner signer = new JWTSigner(CHAVE_HMAC);
             String token = signer.sign(payload);
             
-            responseContext.getHeaders().add("x-senac-token", token);
+            responseContext.getHeaders().add("token", token);
+            TokenControl.getInstance().addToken(token);
             logger.debug("Token gerado: " + token);
-        } else { // deve validar token
-            if (requestContext.getHeaderString("x-senac-token") == null) {
-                logger.warn("FORBIDDEN; HEADER obrigatório não informado!");
-                responseContext.setStatus(Response.Status.FORBIDDEN.getStatusCode());
-            } else { // token informado
-                logger.debug("Verificando token informado");
-                String token = requestContext.getHeaderString("x-senac-token");
-                JWTVerifier verifier = new JWTVerifier(CHAVE_HMAC);
-                try {
-                    verifier.verify(token);
-                    logger.debug("Token válido");
-                } catch (Exception ex) {
-                    logger.warn("Validação de token inválida: " + ex.getMessage());
-                    responseContext.setStatus(Response.Status.FORBIDDEN.getStatusCode());
-                }
-            }
-        }
-
+        } 
+                
     }
 
+    private boolean informadoHeader(String key, ContainerRequestContext requestContext) {
+        return requestContext.getHeaderString(key)!=null;
+    }
 }

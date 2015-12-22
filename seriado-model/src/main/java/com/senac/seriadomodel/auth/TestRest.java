@@ -7,14 +7,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/auth")
-public class AuthRest {
+@Path("/teste")
+public class TestRest {
     
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response autenticar() {
-        System.out.println(">>>>>>>>>>>>> autenticar");
-        return Response.ok().build();                
+    public Response teste() {
+        System.out.println(">>>>>>>>>>>>> teste()");
+        return Response.ok().build();    
     }
 }
