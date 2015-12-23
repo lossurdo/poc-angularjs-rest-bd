@@ -14,7 +14,6 @@ import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.Provider;
 import org.apache.log4j.Logger;
 
 /**
@@ -22,7 +21,7 @@ import org.apache.log4j.Logger;
  * @see https://jwt.io/ e https://github.com/auth0/java-jwt
  * @author lossurdo 
  */
-@Provider
+//@Provider
 public class AuthFilter implements ContainerRequestFilter, ContainerResponseFilter {
 
     public static final Logger logger = Logger.getLogger(AuthFilter.class);
