@@ -1,8 +1,8 @@
 package com.senac.seriadomodel.crud;
 
-import com.senac.seriadomodel.crud.CrudGenerico;
 import com.senac.seriadomodel.infra.Propriedades;
 import java.lang.reflect.Field;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
@@ -59,6 +59,17 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
         }
     }
 
+    /**
+     * Utilizado para executar qualquer NamedQuery
+     * criada nos beans.
+     * 
+     * @param namedQuery
+     * @return 
+     */
+    public List<T> namedQuery(String namedQuery) {
+        return em.createNamedQuery(namedQuery).getResultList();
+    }
+    
     /**
      * Percorre os atributos de uma classe a procura daquele anotado com @Id. Ao
      * encontrar, retorna o valor setado para este atributo.

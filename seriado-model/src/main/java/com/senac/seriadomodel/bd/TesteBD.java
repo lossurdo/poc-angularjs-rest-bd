@@ -13,9 +13,4 @@ public class TesteBD extends CrudGenericoBD<Teste> {
         return query.getResultList();
     }
     
-    public List<Teste> pesquisar() {
-        Query query = getEntityManager().createNamedQuery("findAll");
-        return query.getResultList();
-    }
-    
 }
