@@ -7,10 +7,10 @@ angular.module('app', ['ngRoute'])
 .config(['$routeProvider', function ($routeProvider) {        
     $routeProvider.
         when('/', {
-            templateUrl: 'principal.html'
+            templateUrl: 'partials/principal.html'
         }).
         when('/pesquisar-seriado', {
-            templateUrl: 'pesquisar-seriado.html'
+            templateUrl: 'partials/pesquisar-seriado.html'
             //,
             //controller: 'PesquisarSeriadoController'
         }).
