@@ -34,10 +34,12 @@ public class TesteRN extends CrudGenericoRN<Teste> {
         return crudBD.salvar(bean);
     }
 
+    @Override
     public List<Teste> pesquisar(String valor) {
         return crudBD.namedQuery("findAll");
     }
 
+    @Override
     public List<Teste> pesquisar(Teste bean) {
         return crudBD.pesquisar(bean);
     }

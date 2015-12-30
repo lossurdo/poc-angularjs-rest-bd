@@ -51,7 +51,7 @@ public class GeneroRest extends CrudGenericoRest<Genero> {
     @Override
     public Response listar(Integer offset, Integer limit) {
         try {
-            List<Genero> ret = rn.pesquisar(null);
+            List<Genero> ret = rn.pesquisar("");
             return gerarResponseParaCollection(ret);
         } catch (RNException e) {
             return exceptionParaResponse(e);

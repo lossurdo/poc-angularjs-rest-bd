@@ -7,12 +7,14 @@ import javax.persistence.Query;
 
 public class TesteBD extends CrudGenericoBD<Teste> {
     
+    @Override
     public List<Teste> pesquisar(String valor) {
         Query query = getEntityManager().createNamedQuery("findByValor");
         query.setParameter("param1", valor);
         return query.getResultList();
     }
 
+    @Override
     public List<Teste> pesquisar(Teste bean) {
         return pesquisar(bean.getValor());
     }

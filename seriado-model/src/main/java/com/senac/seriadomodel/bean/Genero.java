@@ -33,7 +33,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @NamedQueries({
     @NamedQuery(name = "Genero.findAll", query = "SELECT g FROM Genero g"),
     @NamedQuery(name = "Genero.findById", query = "SELECT g FROM Genero g WHERE g.id = :id"),
-    @NamedQuery(name = "Genero.findByGenero", query = "SELECT g FROM Genero g WHERE g.genero = :genero")})
+    @NamedQuery(name = "Genero.findByGenero", query = "SELECT g FROM Genero g WHERE g.genero LIKE :genero")})
 public class Genero implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

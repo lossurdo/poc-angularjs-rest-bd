@@ -34,8 +34,14 @@ public class GeneroRN extends CrudGenericoRN<Genero> {
         return crudBD.salvar(bean);
     }
 
+    @Override
     public List<Genero> pesquisar(Genero bean) {
-        return crudBD.namedQuery("Genero.findAll");
+        return crudBD.pesquisar(bean);
+    }
+    
+    @Override
+    public List<Genero> pesquisar(String valor) {
+        return crudBD.pesquisar(valor);
     }
     
 }
