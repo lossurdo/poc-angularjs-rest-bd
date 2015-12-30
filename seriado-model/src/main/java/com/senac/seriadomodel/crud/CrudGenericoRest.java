@@ -32,7 +32,7 @@ public abstract class CrudGenericoRest<T> {
 
     @Context
     protected HttpHeaders headers;
-
+    
     @GET
     @Path("{pk}")
     @Produces(value = MediaType.APPLICATION_JSON)

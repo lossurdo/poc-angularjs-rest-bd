@@ -12,5 +12,9 @@ public class TesteBD extends CrudGenericoBD<Teste> {
         query.setParameter("param1", valor);
         return query.getResultList();
     }
+
+    public List<Teste> pesquisar(Teste bean) {
+        return pesquisar(bean.getValor());
+    }
     
 }

@@ -18,17 +18,20 @@ public class GeneroRN extends CrudGenericoRN<Genero> {
 
     @Override
     public Genero consultar(Genero bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        avaliarConsultar(crudBD, bean);
+        return crudBD.consultar(bean);
     }
 
     @Override
     public boolean excluir(Genero bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        avaliarExcluir(crudBD, bean);
+        return crudBD.excluir(bean);
     }
 
     @Override
     public Genero salvar(Genero bean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        avaliarSalvar(crudBD, bean);
+        return crudBD.salvar(bean);
     }
 
     public List<Genero> pesquisar(Genero bean) {

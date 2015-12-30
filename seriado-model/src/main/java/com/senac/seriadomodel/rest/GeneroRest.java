@@ -1,9 +1,11 @@
 package com.senac.seriadomodel.rest;
 
+import com.google.gson.Gson;
 import com.senac.seriadomodel.bean.Genero;
 import com.senac.seriadomodel.crud.CrudGenericoRest;
 import com.senac.seriadomodel.crud.RNException;
 import com.senac.seriadomodel.rn.GeneroRN;
+import java.net.URI;
 import java.util.List;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.GenericEntity;
@@ -15,6 +17,7 @@ import javax.ws.rs.core.Response;
  */
 @Path("/generos")
 public class GeneroRest extends CrudGenericoRest<Genero> {
+
     private final GeneroRN rn;
 
     public GeneroRest() {
@@ -23,12 +26,26 @@ public class GeneroRest extends CrudGenericoRest<Genero> {
 
     @Override
     public Response consultarPK(String pk) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Genero g = rn.consultar(new Genero(Integer.parseInt(pk)));
+            return Response.ok(g).build();
+        } catch (RNException e) {
+            return exceptionParaResponse(e);
+        }
     }
 
     @Override
     public Response pesquisar(String json) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Gson g = new Gson();
+            Genero genero = g.fromJson(json, Genero.class);
+
+            List<Genero> ret = rn.pesquisar(genero);
+
+            return gerarResponseParaCollection(ret);
+        } catch (RNException e) {
+            return exceptionParaResponse(e);
+        }
     }
 
     @Override
@@ -38,17 +55,28 @@ public class GeneroRest extends CrudGenericoRest<Genero> {
             return gerarResponseParaCollection(ret);
         } catch (RNException e) {
             return exceptionParaResponse(e);
-        }    
+        }
     }
 
     @Override
     public Response excluirPK(String pk) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            rn.excluir(new Genero(Integer.parseInt(pk)));
+            return Response.ok().build();
+        } catch (RNException e) {
+            return exceptionParaResponse(e);
+        }
     }
 
     @Override
     public Response salvar(Genero obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Genero o = rn.salvar(obj);
+            URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(o.getId())).build();
+            return Response.created(uri).build();
+        } catch (RNException e) {
+            return exceptionParaResponse(e);
+        }
     }
 
     @Override
@@ -61,5 +89,5 @@ public class GeneroRest extends CrudGenericoRest<Genero> {
         };
         return Response.ok(lista).build();
     }
-    
+
 }

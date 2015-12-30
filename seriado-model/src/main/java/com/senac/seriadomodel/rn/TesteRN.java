@@ -37,5 +37,9 @@ public class TesteRN extends CrudGenericoRN<Teste> {
     public List<Teste> pesquisar(String valor) {
         return crudBD.namedQuery("findAll");
     }
+
+    public List<Teste> pesquisar(Teste bean) {
+        return crudBD.pesquisar(bean);
+    }
     
 }
