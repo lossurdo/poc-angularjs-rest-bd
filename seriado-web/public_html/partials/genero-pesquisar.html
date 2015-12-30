@@ -1,0 +1,30 @@
+<conteudo-interno>
+    <h1>Pesquisar Gênero</h1>
+    <button class="btn btn-primary" type="submit" form="frm" ng-click="pesquisar()">Pesquisar</button>
+    <button class="btn btn-default" type="reset" form="frm" ng-click="limpar()">Limpar</button>
+    <hr />
+
+    <form id="frm">
+        <div class="form-group">
+            <label for="pesq">Nome do gênero</label>
+            <input type="text" class="form-control" ng-model="objeto.genero" id="pesq" placeholder="Ex. Aventura">
+        </div>
+    </form>
+</conteudo-interno>
+
+<conteudo-interno>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Gênero</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="g in resultados | orderBy:'genero'">
+                <td>{{g.id}}</td>
+                <td>{{g.genero}}</td>
+            </tr>
+        </tbody>
+    </table>
+</conteudo-interno>

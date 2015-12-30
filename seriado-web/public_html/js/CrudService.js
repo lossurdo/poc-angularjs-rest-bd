@@ -1,4 +1,4 @@
-angular.module('CrudServiceApp', [])
+angular.module('CrudServiceModule', [])
 
 .service('CrudService', ['$http', function($http) {
 
@@ -42,11 +42,11 @@ angular.module('CrudServiceApp', [])
     this.pesquisar = function(jsonObject, fn) {
         console.log(jsonObject);
 
-        $http.get(this.$serviceURL)
-        .success(function (data) {
-            console.log(data);
-            fn(data);
-        });
+        $http.get(this.$serviceURL + "/search/" + jsonObject)
+            .success(function (data) {
+                console.log(data);
+                fn(data);
+            });
     }
         
 }]);
