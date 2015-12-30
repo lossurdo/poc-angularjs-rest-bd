@@ -12,17 +12,24 @@ angular.module('AppModule', ['ngRoute',
  */
 .config(['$routeProvider', function ($routeProvider) {        
     $routeProvider.
-        when('/', {
-            templateUrl: 'partials/principal.html',
-            controller: 'AppController'
-        }).
+        /* ********** SERIADO ****************** */
         when('/seriado-pesquisar', {
             templateUrl: 'partials/seriado-pesquisar.html',
             controller: 'SeriadoController'
         }).
+        /* ********** GÊNERO ****************** */
         when('/genero-pesquisar', {
             templateUrl: 'partials/genero-pesquisar.html',
             controller: 'GeneroController'
+        }).
+        when('/genero-novo', {
+            templateUrl: 'partials/genero-novo.html',
+            controller: 'GeneroController'
+        }).
+        /* ********** PADRÃO ****************** */
+        when('/', {
+            templateUrl: 'partials/principal.html',
+            controller: 'AppController'
         }).
         otherwise({
             redirectTo: '/'
@@ -32,11 +39,11 @@ angular.module('AppModule', ['ngRoute',
 /* **************************************************
  * Definição dos templates de página
  */
-.directive('conteudo-interno', function () {
+.directive('conteudoInterno', function () {
     return {
         restrict: 'E',
         transclude: true,
-        template: '<div class="row"><div class="col-md-3"></div><div class="col-md-6" ng-transclude></div><div class="col-md-3"></div></div>'
+        template: '<div class="row" ng-if="mensagem"><div class="col-md-12"><span class="bg-info mensagem">{{mensagem}}</span></div></div><div class="row"> <div class="col-md-3"></div><div class="col-md-6" ng-transclude></div><div class="col-md-3"></div></div>'
     };
 })
 

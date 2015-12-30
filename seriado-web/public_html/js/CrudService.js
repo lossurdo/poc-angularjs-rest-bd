@@ -18,12 +18,10 @@ angular.module('CrudServiceModule', [])
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).success(function (data, status, headers, config) {
-            console.log(data);
-            fn(headers.location);
-        }).error(function (data, status, headers, config) {
-            console.log(data);
-            fn(headers.location);
+        }).success(function (data, status, headers, config, statusText) {            
+            fn(headers('Location'));
+        }).error(function (data, status, header, config, statusText) {
+            console.log('Erro: ' + statusText);
         });        
     }
     
@@ -31,8 +29,13 @@ angular.module('CrudServiceModule', [])
         console.log(jsonObject);
     }
     
-    this.excluir = function(jsonObject) {
-        console.log(jsonObject);
+    this.excluir = function(id, fn) {
+        console.log(id);
+        $http.delete(this.$serviceURL + "/" + id)
+            .success(function (data) {
+                console.log(data);
+                fn();
+            });
     }
     
     this.alterar = function(jsonObject) {

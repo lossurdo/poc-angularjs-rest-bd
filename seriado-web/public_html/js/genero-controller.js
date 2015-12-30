@@ -2,7 +2,7 @@ angular.module('GeneroModule', ['CrudServiceModule'])
 
 .controller('GeneroController', ['$scope', 'CrudService', function($scope, CrudService) {
 
-    $scope.objeto;
+    $scope.objeto = { genero: '' };
     $scope.resultados;
 
     $scope.salvar = function() {
@@ -14,6 +14,12 @@ angular.module('GeneroModule', ['CrudServiceModule'])
     $scope.pesquisar = function() {
         CrudService.pesquisar(angular.toJson($scope.objeto), function(data) {
             $scope.resultados = data;
+        });
+    }
+
+    $scope.excluir = function(obj) {
+        CrudService.excluir(obj.id, function() {
+            $scope.limpar();
         });
     }
 

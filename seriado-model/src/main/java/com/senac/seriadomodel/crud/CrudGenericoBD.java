@@ -55,8 +55,9 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
     @Override
     public boolean excluir(T bean) {
         logger.debug("Excluindo " + bean);
+        T obj = consultar(bean);
         em.getTransaction().begin();
-        em.remove(consultar(bean));
+        em.remove(obj);
         em.getTransaction().commit();
         return true;
     }

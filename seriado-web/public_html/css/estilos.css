@@ -8,5 +8,10 @@
 }
 
 h3 {
-	color: #ccc;
+    color: #ccc;
+}
+
+.mensagem {
+    padding: 1em;
+    border-radius: 2px;
 }
