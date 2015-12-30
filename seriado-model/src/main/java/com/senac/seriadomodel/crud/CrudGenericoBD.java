@@ -19,7 +19,7 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
     private static final Logger logger = Logger.getLogger(CrudGenericoBD.class);
     
     private final EntityManagerFactory emf;
-    protected final EntityManager em;
+    private final EntityManager em;
 
     public CrudGenericoBD() {
         logger.debug("Estabelecendo conexão com o banco de dados via JPA");
@@ -33,10 +33,22 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
     @Override
     public T salvar(T bean) {
         logger.debug("Salvando/Alterando " + bean);
-        em.getTransaction().begin();
-        em.merge(bean);
-        em.flush();
-        em.getTransaction().commit();
+        Object valorPK = null;
+        try {
+            valorPK = descobrirValorPK(bean);
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+
+        em.getTransaction().begin();        
+        if (valorPK == null) { // incluindo novo registro
+            em.persist(bean);
+            em.flush();
+        } else { // alterando registro existente
+            em.merge(bean);
+        }        
+        em.getTransaction().commit();        
+        
         return bean;
     }
 
@@ -53,7 +65,11 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
     public T consultar(T bean) {
         logger.debug("Consultando " + bean);
         try {
-            return (T) em.find(bean.getClass(), descobrirValorPK(bean));
+            Object valorPK = descobrirValorPK(bean);
+            if (valorPK == null) {
+                return null;
+            }
+            return (T) em.find(bean.getClass(), valorPK);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -71,7 +87,7 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
     }
     
     /**
-     * Percorre os atributos de uma classe a procura daquele anotado com @Id. Ao
+     * Percorre os atributos de uma classe a procura daquele anotado com @Id; Ao
      * encontrar, retorna o valor setado para este atributo.
      *
      * @param bean
@@ -84,7 +100,9 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
         for (Field f : clazz.getDeclaredFields()) {
             if (f.isAnnotationPresent(Id.class)) {
                 f.setAccessible(true);
-                return f.get(bean);
+                Object valorPK = f.get(bean);
+                logger.debug("Valor PK encontrado: " + valorPK);
+                return valorPK;
             }
         }
         return null;
