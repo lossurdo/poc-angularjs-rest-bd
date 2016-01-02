@@ -8,20 +8,14 @@ public abstract class CrudGenericoRN<T> implements CrudGenerico<T> {
         }
     }
 
-    protected Object avaliarConsultar(CrudGenerico crudGenerico, Object object) {
-        Object o = crudGenerico.consultar(object);
-        if (o == null) {
+    protected void avaliarConsultar(CrudGenerico crudGenerico, Object object) {
+        if (crudGenerico.consultar(object) == null) {
             throw new RNException(RNException.Tipo.REGISTRO_NAO_ENCONTRADO, "Registro não encontrado");
         }
-        return o;
     }
 
-    protected boolean avaliarExcluir(CrudGenerico crudGenerico, Object object) {
-        boolean ret = crudGenerico.excluir(object);
-        if (!ret) {
-            throw new RNException(RNException.Tipo.REGISTRO_NAO_ENCONTRADO, "Registro não encontrado");
-        }
-        return ret;
+    protected void avaliarExcluir(CrudGenerico crudGenerico, Object object) {
+        avaliarConsultar(crudGenerico, object);
     }
 
 }
