@@ -35,6 +35,12 @@ public class GeneroRN extends CrudGenericoRN<Genero> {
     }
 
     @Override
+    public Genero alterar(Genero bean) {
+        avaliarAlterar(crudBD, bean);
+        return crudBD.alterar(bean);
+    }
+
+    @Override
     public List<Genero> pesquisar(Genero bean) {
         return crudBD.pesquisar(bean);
     }

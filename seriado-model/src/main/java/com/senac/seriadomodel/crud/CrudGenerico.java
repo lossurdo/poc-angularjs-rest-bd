@@ -9,6 +9,8 @@ public interface CrudGenerico<T> {
     boolean excluir(T bean);
     
     T salvar(T bean);    
+
+    T alterar(T bean);    
     
     // métodos válidos para as pesquisas REST
     List<T> pesquisar(T bean);    

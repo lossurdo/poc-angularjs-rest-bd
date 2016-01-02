@@ -35,6 +35,12 @@ public class TesteRN extends CrudGenericoRN<Teste> {
     }
 
     @Override
+    public Teste alterar(Teste bean) {
+        avaliarAlterar(crudBD, bean);
+        return crudBD.alterar(bean);
+    }
+    
+    @Override
     public List<Teste> pesquisar(String valor) {
         return crudBD.namedQuery("findAll");
     }

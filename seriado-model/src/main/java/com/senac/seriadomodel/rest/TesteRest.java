@@ -76,6 +76,17 @@ public class TesteRest extends CrudGenericoRest<Teste> {
     }
 
     @Override
+    public Response alterar(Teste obj) {
+        try {
+            Teste o = rn.alterar(obj);
+            URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(o.getId())).build();
+            return Response.created(uri).build();
+        } catch (RNException e) {
+            return exceptionParaResponse(e);
+        }
+    }
+
+    @Override
     protected Response gerarResponseParaCollection(List<Teste> obj) {
         if (obj == null) {
             return Response.status(Response.Status.NOT_FOUND).build();

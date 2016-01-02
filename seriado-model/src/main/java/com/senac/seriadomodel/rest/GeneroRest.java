@@ -80,6 +80,17 @@ public class GeneroRest extends CrudGenericoRest<Genero> {
     }
 
     @Override
+    public Response alterar(Genero obj) {
+        try {
+            Genero o = rn.alterar(obj);
+            URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(o.getId())).build();
+            return Response.created(uri).build();
+        } catch (RNException e) {
+            return exceptionParaResponse(e);
+        }
+    }
+
+    @Override
     protected Response gerarResponseParaCollection(List<Genero> obj) {
         if (obj == null) {
             return Response.status(Response.Status.NOT_FOUND).build();

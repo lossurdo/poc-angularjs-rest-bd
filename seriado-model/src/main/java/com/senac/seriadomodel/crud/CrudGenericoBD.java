@@ -32,23 +32,20 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
 
     @Override
     public T salvar(T bean) {
-        logger.debug("Salvando/Alterando " + bean);
-        Object valorPK = null;
-        try {
-            valorPK = descobrirValorPK(bean);
-        } catch (Exception e) {
-            logger.error("", e);
-        }
-
+        logger.debug("Salvando " + bean);
         em.getTransaction().begin();        
-        if (valorPK == null) { // incluindo novo registro
-            em.persist(bean);
-            em.flush();
-        } else { // alterando registro existente
-            em.merge(bean);
-        }        
+        em.persist(bean);
+        em.flush();
+        em.getTransaction().commit();                
+        return bean;
+    }
+
+    @Override
+    public T alterar(T bean) {
+        logger.debug("Alterando " + bean);
+        em.getTransaction().begin();        
+        em.merge(bean);
         em.getTransaction().commit();        
-        
         return bean;
     }
 

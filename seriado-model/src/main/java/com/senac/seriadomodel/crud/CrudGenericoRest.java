@@ -60,9 +60,7 @@ public abstract class CrudGenericoRest<T> {
     @PUT
     @Produces(value = MediaType.APPLICATION_JSON)
     @Consumes(value = MediaType.APPLICATION_JSON)
-    public Response alterar(T obj) {
-        return salvar(obj);
-    }
+    public abstract Response alterar(T obj);
 
     /**
      * Pela característica da conversão das coleções
