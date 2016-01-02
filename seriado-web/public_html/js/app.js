@@ -26,6 +26,10 @@ angular.module('AppModule', ['ngRoute',
             templateUrl: 'partials/genero-novo.html',
             controller: 'GeneroController'
         }).
+        when('/genero-editar/:id', {
+            templateUrl: 'partials/genero-editar.html',
+            controller: 'GeneroController'
+        }).
         /* ********** PADRÃO ****************** */
         when('/', {
             templateUrl: 'partials/principal.html',

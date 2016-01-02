@@ -1,9 +1,10 @@
 angular.module('GeneroModule', ['CrudServiceModule'])
 
-.controller('GeneroController', ['$scope', 'CrudService', function($scope, CrudService) {
+.controller('GeneroController', ['$scope', 'CrudService', '$routeParams', function($scope, CrudService, $routeParams) {
 
     $scope.objeto = { genero: '' };
     $scope.resultados;
+    $scope.idEdicao = $routeParams.id;
 
     $scope.salvar = function() {
         CrudService.salvar($scope.objeto, function(location) {
@@ -27,6 +28,24 @@ angular.module('GeneroModule', ['CrudServiceModule'])
         $scope.objeto = { genero:'' };
         $scope.resultados = null;
         $scope.pesquisar();
+    }
+
+    $scope.consultar = function(id) {
+        CrudService.consultar(id, function(obj) {
+            $scope.objeto = obj;
+        });
+    }
+
+    $scope.alterar = function() {
+        CrudService.alterar($scope.objeto, function(location) {
+            console.log(location);
+        });
+    }
+
+    // se id foi passado como parâmetro para edição
+    if(angular.isDefined($scope.idEdicao)) {
+        // consulta seus dados e atribui ao objeto
+        $scope.consultar($scope.idEdicao);
     }
 
     // definindo padrão de chamada

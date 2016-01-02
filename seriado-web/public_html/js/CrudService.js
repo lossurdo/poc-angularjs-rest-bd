@@ -25,8 +25,16 @@ angular.module('CrudServiceModule', [])
         });        
     }
     
-    this.consultar = function(jsonObject) {
-        console.log(jsonObject);
+    this.consultar = function(id, fn) {
+        console.log(id);
+        $http.get(this.$serviceURL + "/" + id)
+            .success(function (data) {
+                console.log(data);
+                fn(data);
+            })
+            .error(function (data, status, header, config, statusText) {
+                console.log('Erro: ' + statusText);
+            });
     }
     
     this.excluir = function(id, fn) {
@@ -35,11 +43,27 @@ angular.module('CrudServiceModule', [])
             .success(function (data) {
                 console.log(data);
                 fn();
+            })
+            .error(function (data, status, header, config, statusText) {
+                console.log('Erro: ' + statusText);
             });
     }
     
-    this.alterar = function(jsonObject) {
+    this.alterar = function(jsonObject, fn) {
         console.log(jsonObject);
+        
+        $http({
+            method: 'PUT',
+            data: jsonObject,
+            url: this.$serviceURL,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).success(function (data, status, headers, config, statusText) {            
+            fn(headers('Location'));
+        }).error(function (data, status, header, config, statusText) {
+            console.log('Erro: ' + statusText);
+        });        
     }
 
     this.pesquisar = function(jsonObject, fn) {
