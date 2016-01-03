@@ -1,0 +1,12 @@
+{
+  "name": "seriado-mock",
+  "version": "1.0.0",
+  "devDependencies": {},
+  "description": "Mock REST dos dados do projeto de CRUD de Seriado",
+  "main": "Gruntfile.js",
+  "author": "Rafael Lossurdo <lossurdo@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "restify": "^4.0.3"
+  }
+}
