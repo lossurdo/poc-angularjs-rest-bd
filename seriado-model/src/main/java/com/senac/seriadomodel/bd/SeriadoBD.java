@@ -18,8 +18,7 @@ public class SeriadoBD extends CrudGenericoBD<Seriado> {
         try {
             Query query = em.createNamedQuery("Seriado.findByTitulo");
             query.setParameter("titulo", "%" + valor + "%");
-            List lista = query.getResultList();
-            return lista;
+            return query.getResultList();
         } finally {
             em.close();        
         }

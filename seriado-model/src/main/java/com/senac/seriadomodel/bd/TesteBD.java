@@ -11,11 +11,13 @@ public class TesteBD extends CrudGenericoBD<Teste> {
     @Override
     public List<Teste> pesquisar(String valor) {
         EntityManager em = createEntityManager();        
-        Query query = em.createNamedQuery("findByValor");
-        query.setParameter("param1", valor);
-        List lista = query.getResultList();
-        em.close();
-        return lista;
+        try {
+            Query query = em.createNamedQuery("findByValor");
+            query.setParameter("param1", valor);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     @Override

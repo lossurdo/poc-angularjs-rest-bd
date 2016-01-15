@@ -18,8 +18,7 @@ public class GeneroBD extends CrudGenericoBD<Genero> {
         try {
             Query query = em.createNamedQuery("Genero.findByGenero");
             query.setParameter("genero", "%" + valor + "%");
-            List lista = query.getResultList();
-            return lista;
+            return query.getResultList();
         } finally {
             em.close();        
         }
