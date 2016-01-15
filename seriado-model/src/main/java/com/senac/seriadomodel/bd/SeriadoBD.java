@@ -1,6 +1,6 @@
 package com.senac.seriadomodel.bd;
 
-import com.senac.seriadomodel.bean.Genero;
+import com.senac.seriadomodel.bean.Seriado;
 import com.senac.seriadomodel.crud.CrudGenericoBD;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -10,21 +10,21 @@ import javax.persistence.Query;
  *
  * @author lossurdo
  */
-public class GeneroBD extends CrudGenericoBD<Genero> {
+public class SeriadoBD extends CrudGenericoBD<Seriado> {
 
     @Override
-    public List<Genero> pesquisar(String valor) {
-        EntityManager em = createEntityManager();        
-        Query query = em.createNamedQuery("Genero.findByGenero");
-        query.setParameter("genero", "%" + valor + "%");
-        List lista = query.getResultList();
-        em.close();        
-        return lista;
+    public List<Seriado> pesquisar(Seriado bean) {
+        return pesquisar(bean.getTitulo());
     }
 
     @Override
-    public List<Genero> pesquisar(Genero bean) {
-        return pesquisar(bean.getGenero());
+    public List<Seriado> pesquisar(String valor) {
+        EntityManager em = createEntityManager();        
+        Query query = em.createNamedQuery("Seriado.findByTitulo");
+        query.setParameter("titulo", "%" + valor + "%");
+        List lista = query.getResultList();
+        em.close();        
+        return lista;
     }
     
 }

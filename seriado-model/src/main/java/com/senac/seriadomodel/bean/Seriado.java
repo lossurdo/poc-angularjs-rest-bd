@@ -19,8 +19,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -32,7 +30,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @NamedQueries({
     @NamedQuery(name = "Seriado.findAll", query = "SELECT s FROM Seriado s"),
     @NamedQuery(name = "Seriado.findById", query = "SELECT s FROM Seriado s WHERE s.id = :id"),
-    @NamedQuery(name = "Seriado.findByTitulo", query = "SELECT s FROM Seriado s WHERE s.titulo = :titulo"),
+    @NamedQuery(name = "Seriado.findByTitulo", query = "SELECT s FROM Seriado s WHERE s.titulo LIKE :titulo"),
     @NamedQuery(name = "Seriado.findByAno", query = "SELECT s FROM Seriado s WHERE s.ano = :ano"),
     @NamedQuery(name = "Seriado.findByUrlPoster", query = "SELECT s FROM Seriado s WHERE s.urlPoster = :urlPoster"),
     @NamedQuery(name = "Seriado.findByUrlTrailerYoutube", query = "SELECT s FROM Seriado s WHERE s.urlTrailerYoutube = :urlTrailerYoutube"),
@@ -69,8 +67,9 @@ public class Seriado implements Serializable {
     @Basic(optional = false)
     @Column(name = "finalizado")
     private boolean finalizado;
-    @ManyToMany(mappedBy = "seriadoList")
-    private List<Genero> generoList;
+    
+    @ManyToMany(mappedBy = "seriados")
+    private List<Genero> generos;
 
     public Seriado() {
     }
@@ -165,14 +164,12 @@ public class Seriado implements Serializable {
         this.finalizado = finalizado;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public List<Genero> getGeneroList() {
-        return generoList;
+    public List<Genero> getGeneros() {
+        return generos;
     }
 
-    public void setGeneroList(List<Genero> generoList) {
-        this.generoList = generoList;
+    public void setGeneros(List<Genero> generos) {
+        this.generos = generos;
     }
 
     @Override

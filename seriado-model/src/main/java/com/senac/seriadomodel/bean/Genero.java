@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.senac.seriadomodel.bean;
 
 import java.io.Serializable;
@@ -43,11 +38,12 @@ public class Genero implements Serializable {
     private Integer id;
     @Column(name = "genero")
     private String genero;
+    
     @JoinTable(name = "seriado_genero", joinColumns = {
         @JoinColumn(name = "genero_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "seriado_id", referencedColumnName = "id")})
     @ManyToMany
-    private List<Seriado> seriadoList;
+    private List<Seriado> seriados;
 
     public Genero() {
     }
@@ -74,12 +70,12 @@ public class Genero implements Serializable {
 
     @XmlTransient
     @JsonIgnore
-    public List<Seriado> getSeriadoList() {
-        return seriadoList;
+    public List<Seriado> getSeriados() {
+        return seriados;
     }
 
-    public void setSeriadoList(List<Seriado> seriadoList) {
-        this.seriadoList = seriadoList;
+    public void setSeriados(List<Seriado> seriados) {
+        this.seriados = seriados;
     }
 
     @Override

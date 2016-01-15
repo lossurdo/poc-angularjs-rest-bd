@@ -37,7 +37,7 @@ public class GeradorJsonMockTest {
         g8.setGenero("Action");
         
         Seriado s1 = new Seriado(1);
-        s1.setGeneroList(Arrays.asList(g1, g5, g4));
+        s1.setGeneros(Arrays.asList(g1, g5, g4));
         s1.setElenco("Peter Dinklage, Lena Headey, Emilia Clarke, Kit Harington");
         s1.setAno(2011);
         s1.setCriadores("David Benioff, D.B. Weiss");
@@ -46,7 +46,7 @@ public class GeradorJsonMockTest {
         s1.setSumario("Several noble families fight for control of the mythical land of Westeros.");
 
         Seriado s2 = new Seriado(2);
-        s2.setGeneroList(Arrays.asList(g5, g6, g7));
+        s2.setGeneros(Arrays.asList(g5, g6, g7));
         s2.setElenco("Claire Danes, Mandy Patinkin, Rupert Friend, Damian Lewis");
         s2.setAno(2011);
         s2.setCriadores("Alex Gansa, Howard Gordon");
@@ -55,7 +55,7 @@ public class GeradorJsonMockTest {
         s2.setSumario("When Marine Nicolas Brody is hailed as a hero after he returns home from eight years of captivity in Iraq, intelligence officer Carrie Mathison is the only one who suspects that he may have been turned.");
         
         Seriado s3 = new Seriado(3);
-        s3.setGeneroList(Arrays.asList(g5, g6, g2));
+        s3.setGeneros(Arrays.asList(g5, g6, g2));
         s3.setElenco("Gillian Anderson, David Duchovny, Mitch Pileggi");
         s3.setAno(1993);
         s3.setFinalizado(true);
