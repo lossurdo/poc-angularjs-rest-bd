@@ -15,11 +15,14 @@ public class GeneroBD extends CrudGenericoBD<Genero> {
     @Override
     public List<Genero> pesquisar(String valor) {
         EntityManager em = createEntityManager();        
-        Query query = em.createNamedQuery("Genero.findByGenero");
-        query.setParameter("genero", "%" + valor + "%");
-        List lista = query.getResultList();
-        em.close();        
-        return lista;
+        try {
+            Query query = em.createNamedQuery("Genero.findByGenero");
+            query.setParameter("genero", "%" + valor + "%");
+            List lista = query.getResultList();
+            return lista;
+        } finally {
+            em.close();        
+        }
     }
 
     @Override

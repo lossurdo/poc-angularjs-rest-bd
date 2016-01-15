@@ -32,11 +32,14 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
     public T salvar(T bean) {
         logger.debug("Salvando " + bean);
         EntityManager em = createEntityManager();
-        em.getTransaction().begin();        
-        em.persist(bean);
-        em.flush();
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();        
+            em.persist(bean);
+            em.flush();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
         return bean;
     }
 
@@ -44,39 +47,47 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
     public T alterar(T bean) {
         logger.debug("Alterando " + bean);
         EntityManager em = createEntityManager();
-        em.getTransaction().begin();        
-        em.merge(bean);
-        em.getTransaction().commit();        
-        em.close();
+        try {
+            em.getTransaction().begin();        
+            em.merge(bean);
+            em.getTransaction().commit();        
+        } finally {
+            em.close();
+        }
         return bean;
     }
 
     @Override
     public boolean excluir(T bean) {
         logger.debug("Excluindo " + bean);
-        T obj = consultar(bean);
         EntityManager em = createEntityManager();
-        em.getTransaction().begin();
-        em.remove(obj);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            T obj = (T) em.getReference(bean.getClass(), descobrirValorPK(bean));
+            em.getTransaction().begin();        
+            em.remove(obj);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            em.close();
+        }
         return true;
     }
 
     @Override
     public T consultar(T bean) {
         logger.debug("Consultando " + bean);
+        EntityManager em = createEntityManager();
         try {
             Object valorPK = descobrirValorPK(bean);
             if (valorPK == null) {
                 return null;
             }
-            EntityManager em = createEntityManager();
-            Object obj = em.find(bean.getClass(), valorPK);
-            em.close();
-            return (T) obj;
+            return (T) em.find(bean.getClass(), valorPK);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
+        } finally {
+            em.close();
         }
     }
 
@@ -88,10 +99,12 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
      * @return 
      */
     public List<T> namedQuery(String namedQuery) {
-        EntityManager em = createEntityManager();        
-        List lista = em.createNamedQuery(namedQuery).getResultList();
-        em.close();        
-        return lista;
+        EntityManager em = createEntityManager(); 
+        try {
+            return em.createNamedQuery(namedQuery).getResultList();
+        } finally {
+            em.close();        
+        }            
     }
     
     /**
