@@ -1,37 +1,43 @@
 <conteudo-interno>
     <h1>Pesquisar Seriado</h1>
-    <button class="btn btn-primary">Pesquisar</button>
-    <button class="btn btn-default">Limpar</button>
+    <button class="btn btn-primary" type="submit" form="frm" ng-click="pesquisar()">Pesquisar</button>
+    <button class="btn btn-default" type="reset" form="frm" ng-click="limpar()">Limpar</button>
+    <a href="#/seriado-novo" class="btn btn-default">Novo...</a>
     <hr />
 
-    <form>
+    <form id="frm">
         <div class="form-group">
             <label for="pesq">Nome do seriado</label>
-            <input type="text" class="form-control" id="pesq" placeholder="Ex. Game of Thrones">
+            <input type="text" class="form-control" ng-model="objeto.titulo" id="pesq" placeholder="Ex. Game of Thrones">
         </div>
     </form>
 </conteudo-interno>
 
-<conteudo-interno>
+<conteudo-interno ng-if="resultados.length > 0">
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Month</th>
-                <th>Savings</th>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Gênero(s)</th>
+                <th>Avaliação</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Sum</td>
-                <td>$180</td>
-            </tr>
-            <tr>
-                <td>January</td>
-                <td>$100</td>
-            </tr>
-            <tr>
-                <td>February</td>
-                <td>$80</td>
+            <tr ng-repeat="s in resultados | orderBy:'titulo'">
+                <td>{{s.id}}</td>
+                <td>{{s.titulo}}</td>
+                <td>
+                    <ul ng-repeat="g in s.generos | orderBy:'genero'">
+                        <li>{{g.genero}}</li>
+                    </ul>
+                </td>
+                <td><avaliacao-seriado nota="{{s.nota}}" /></td>
+                <td class="pull-right">
+                    <a ng-href="#/seriado-editar/{{s.id}}" class="btn btn-default">Alterar</a>
+                    <button class="btn btn-warning" ng-click="excluir(s)">Excluir</button>
+                </td>
             </tr>
         </tbody>
     </table>

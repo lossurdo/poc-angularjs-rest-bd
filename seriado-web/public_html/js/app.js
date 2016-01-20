@@ -17,6 +17,14 @@ angular.module('AppModule', ['ngRoute',
             templateUrl: 'partials/seriado-pesquisar.html',
             controller: 'SeriadoController'
         }).
+        when('/seriado-novo', {
+            templateUrl: 'partials/seriado-novo.html',
+            controller: 'SeriadoController'
+        }).
+        when('/seriado-editar/:id', {
+            templateUrl: 'partials/seriado-editar.html',
+            controller: 'SeriadoController'
+        }).
         /* ********** GÊNERO ****************** */
         when('/genero-pesquisar', {
             templateUrl: 'partials/genero-pesquisar.html',
@@ -49,6 +57,16 @@ angular.module('AppModule', ['ngRoute',
         transclude: true,
         template: '<div class="row" ng-if="mensagem"><div class="col-md-12"><span class="bg-info mensagem">{{mensagem}}</span></div></div><div class="row"> <div class="col-md-3"></div><div class="col-md-6" ng-transclude></div><div class="col-md-3"></div></div>'
     };
+})
+
+.directive('avaliacaoSeriado', function() {
+    return {
+        restrict: 'E',
+        scope: {
+            valorNota: '@nota'
+        },
+        templateUrl: '../templates/avaliacao-seriado.html'
+    }
 })
 
 ;       

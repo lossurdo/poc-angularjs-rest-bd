@@ -50,6 +50,21 @@ angular.module('GeneroModule', ['CrudServiceModule'])
 
     // definindo padrão de chamada
     CrudService.init('http://localhost:8080/seriado-model/rest/generos');
+
+    /*
+     * Método utilizado para ajudar a marcar os
+     * checkboxes de gêneros no seriado.
+     */
+    $scope.buscaGenero = function (id, obj) {
+        for(var i=0; i<obj.length; i++) {
+            if(obj[i].id === id) {
+                return true;
+            }
+        }
+        return false;
+    }
+        
+    $scope.limpar();
 }])
 
 ;

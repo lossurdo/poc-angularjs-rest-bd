@@ -15,3 +15,7 @@ h3 {
     padding: 1em;
     border-radius: 2px;
 }
+
+label {
+    padding-top: 1em;
+}

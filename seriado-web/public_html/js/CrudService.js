@@ -1,3 +1,9 @@
+/* *************************************************************
+ * Service genérico para permitir chamadas CRUD padrão
+ * RESTful. Utilizado para chamar a camada MODEL do Java.
+ * 
+ * Por: Rafael Lossurdo
+ ************************************************************ */
 angular.module('CrudServiceModule', [])
 
 .service('CrudService', ['$http', function($http) {
