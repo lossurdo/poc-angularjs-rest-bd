@@ -70,7 +70,7 @@ public class Seriado implements Serializable {
             joinColumns = {@JoinColumn(name = "seriado_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "genero_id", referencedColumnName = "id")}
     )
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     private List<Genero> generos;
 
     public Seriado() {
