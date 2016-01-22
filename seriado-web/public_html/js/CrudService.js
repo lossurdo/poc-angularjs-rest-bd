@@ -82,4 +82,9 @@ angular.module('CrudServiceModule', [])
             });
     }
         
+    // definição de mensagens padrões para ações de CRUD
+    this.geraMensagemDefault = function() {
+        alert('Ação executada com sucesso!');
+    };    
+    
 }]);

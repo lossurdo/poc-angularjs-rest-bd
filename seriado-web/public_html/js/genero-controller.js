@@ -9,6 +9,7 @@ angular.module('GeneroModule', ['CrudServiceModule'])
     $scope.salvar = function() {
         CrudService.salvar($scope.objeto, function(location) {
             console.log(location);
+            CrudService.geraMensagemDefault();
         });
     }
     
@@ -21,6 +22,7 @@ angular.module('GeneroModule', ['CrudServiceModule'])
     $scope.excluir = function(obj) {
         CrudService.excluir(obj.id, function() {
             $scope.limpar();
+            CrudService.geraMensagemDefault();
         });
     }
 
@@ -39,6 +41,7 @@ angular.module('GeneroModule', ['CrudServiceModule'])
     $scope.alterar = function() {
         CrudService.alterar($scope.objeto, function(location) {
             console.log(location);
+            CrudService.geraMensagemDefault();
         });
     }
 

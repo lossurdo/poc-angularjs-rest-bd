@@ -55,7 +55,7 @@ angular.module('AppModule', ['ngRoute',
     return {
         restrict: 'E',
         transclude: true,
-        template: '<div class="row" ng-if="mensagem"><div class="col-md-12"><span class="bg-info mensagem">{{mensagem}}</span></div></div><div class="row"> <div class="col-md-3"></div><div class="col-md-6" ng-transclude></div><div class="col-md-3"></div></div>'
+        templateUrl: '../templates/conteudo-interno.html'
     };
 })
 
