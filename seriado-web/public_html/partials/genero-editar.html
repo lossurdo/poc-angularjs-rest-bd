@@ -1,14 +1,19 @@
 <conteudo-interno>
     <h1>Alterar Gênero</h1>
-    <button class="btn btn-primary" type="submit" form="frm" ng-click="alterar()">Alterar</button>
+    <button class="btn btn-primary" type="submit" form="frm" ng-click="alterar()" ng-disabled="frm.$invalid">Alterar</button>
     <button class="btn btn-default" type="reset" form="frm">Limpar</button>
     <a href="#/genero-pesquisar" class="btn btn-default">Pesquisar</a>
     <hr />
 
-    <form id="frm">
+    <form name="frm">
         <div class="form-group">
             <label for="pesq">Nome do gênero</label>
-            <input type="text" required="true" class="form-control" ng-model="objeto.genero" id="pesq" placeholder="Ex. Aventura">
+            <input type="text" ng-required="true" 
+                class="form-control" 
+                ng-model="objeto.genero" 
+                ng-minlength="3"
+                id="pesq" 
+                placeholder="Ex. Aventura">
         </div>
     </form>
 </conteudo-interno>

@@ -1,14 +1,18 @@
 <conteudo-interno>
     <h1>Novo Gênero</h1>
-    <button class="btn btn-primary" type="submit" form="frm" ng-click="salvar()">Salvar</button>
+    <button class="btn btn-primary" type="submit" form="frm" ng-click="salvar()" ng-disabled="frm.$invalid">Salvar</button>
     <button class="btn btn-default" type="reset" form="frm">Limpar</button>
     <a href="#/genero-pesquisar" class="btn btn-default">Pesquisar</a>
     <hr />
 
-    <form id="frm">
+    <form name="frm">
         <div class="form-group">
             <label for="genero">Nome do gênero</label>
-            <input id="genero" type="text" required="true" class="form-control" ng-model="objeto.genero" placeholder="Ex. Aventura">
+            <input id="genero" type="text" 
+                ng-required="true" class="form-control" 
+                ng-model="objeto.genero" 
+                ng-minlength="3"
+                placeholder="Ex. Aventura">
         </div>
     </form>
 </conteudo-interno>
