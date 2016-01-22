@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -39,10 +37,7 @@ public class Genero implements Serializable {
     @Column(name = "genero")
     private String genero;
     
-    @JoinTable(name = "seriado_genero", joinColumns = {
-        @JoinColumn(name = "genero_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "seriado_id", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "generos")
     private List<Seriado> seriados;
 
     public Genero() {
@@ -100,7 +95,7 @@ public class Genero implements Serializable {
 
     @Override
     public String toString() {
-        return "com.senac.seriadomodel.bean.Genero[ id=" + id + " ]";
+        return "Genero{" + "id=" + id + ", genero=" + genero + '}';
     }
     
 }

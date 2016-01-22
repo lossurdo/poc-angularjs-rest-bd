@@ -1,18 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.senac.seriadomodel.bean;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -68,7 +66,11 @@ public class Seriado implements Serializable {
     @Column(name = "finalizado")
     private boolean finalizado;
     
-    @ManyToMany(mappedBy = "seriados")
+    @JoinTable(name = "seriado_genero", 
+            joinColumns = {@JoinColumn(name = "seriado_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "genero_id", referencedColumnName = "id")}
+    )
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Genero> generos;
 
     public Seriado() {
@@ -194,7 +196,7 @@ public class Seriado implements Serializable {
 
     @Override
     public String toString() {
-        return "com.senac.seriadomodel.bean.Seriado[ id=" + id + " ]";
+        return "Seriado{" + "id=" + id + ", titulo=" + titulo + ", sumario=" + sumario + ", ano=" + ano + ", urlPoster=" + urlPoster + ", urlTrailerYoutube=" + urlTrailerYoutube + ", nota=" + nota + ", criadores=" + criadores + ", elenco=" + elenco + ", finalizado=" + finalizado + ", generos=" + generos + '}';
     }
     
 }
