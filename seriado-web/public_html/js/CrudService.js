@@ -7,20 +7,14 @@
 angular.module('CrudServiceModule', [])
 
 .service('CrudService', ['$http', function($http) {
-
-    var $serviceURL;
-
-    this.init = function(url) {
-        this.$serviceURL = url;
-    }
             
-    this.salvar = function(jsonObject, fn) {
+    this.salvar = function(serviceURL, jsonObject, fn) {
         console.log(jsonObject);
         
         $http({
             method: 'POST',
             data: jsonObject,
-            url: this.$serviceURL,
+            url: serviceURL,
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -31,9 +25,9 @@ angular.module('CrudServiceModule', [])
         });        
     }
     
-    this.consultar = function(id, fn) {
+    this.consultar = function(serviceURL, id, fn) {
         console.log(id);
-        $http.get(this.$serviceURL + "/" + id)
+        $http.get(serviceURL + "/" + id)
             .success(function (data) {
                 console.log(data);
                 fn(data);
@@ -43,9 +37,9 @@ angular.module('CrudServiceModule', [])
             });
     }
     
-    this.excluir = function(id, fn) {
+    this.excluir = function(serviceURL, id, fn) {
         console.log(id);
-        $http.delete(this.$serviceURL + "/" + id)
+        $http.delete(serviceURL + "/" + id)
             .success(function (data) {
                 console.log(data);
                 fn();
@@ -55,13 +49,13 @@ angular.module('CrudServiceModule', [])
             });
     }
     
-    this.alterar = function(jsonObject, fn) {
+    this.alterar = function(serviceURL, jsonObject, fn) {
         console.log(jsonObject);
         
         $http({
             method: 'PUT',
             data: jsonObject,
-            url: this.$serviceURL,
+            url: serviceURL,
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -72,19 +66,19 @@ angular.module('CrudServiceModule', [])
         });        
     }
 
-    this.pesquisar = function(jsonObject, fn) {
+    this.pesquisar = function(serviceURL, jsonObject, fn) {
         console.log(jsonObject);
 
-        $http.get(this.$serviceURL + "/search/" + jsonObject)
+        $http.get(serviceURL + "/search/" + jsonObject)
             .success(function (data) {
                 console.log(data);
                 fn(data);
             });
     }
         
-    // definição de mensagens padrões para ações de CRUD
+    // definição de mensagens padrões para ações de CRUD - abertura do modal
     this.geraMensagemDefault = function() {
-        alert('Ação executada com sucesso!');
+        $('#myModal').modal();        
     };    
     
 }]);

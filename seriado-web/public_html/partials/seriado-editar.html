@@ -9,7 +9,7 @@
         <div class="form-group">
             <label for="titulo">Título</label>
             <input id="titulo" type="text" required="true" class="form-control" ng-model="objeto.titulo" placeholder="Ex. Game of Thrones">
-            
+
             <label for="sumario">Sumário</label>
             <textarea id="sumario" class="form-control" ng-model="objeto.sumario"></textarea>
 
@@ -31,9 +31,18 @@
             <label for="elenco">Elenco</label>
             <textarea id="elenco" class="form-control" ng-model="objeto.elenco"></textarea>
 
-            <label for="finalizado">Finalizado?</label>
-            <input id="finalizado" type="checkbox" value="1" class="form-control" ng-model="objeto.finalizado">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="1" ng-model="objeto.finalizado"> Seriado finalizado?
+                </label>
+            </div>
 
+            <label for="generos" ng-init="listarGeneros()">Gênero(s)</label>
+            <select id="generos" multiple class="form-control"
+                ng-options="reg.genero for reg in generosSelecionados.opcoesDisponiveis track by reg.id"
+                ng-model="generosSelecionados.opcoesSelecionadas">                      
+            </select>
+            
         </div>
     </form>
 </conteudo-interno>

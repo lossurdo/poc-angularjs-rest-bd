@@ -18,6 +18,7 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Pôster</th>
                 <th>Título</th>
                 <th>Gênero(s)</th>
                 <th>Avaliação</th>
@@ -27,6 +28,11 @@
         <tbody>
             <tr ng-repeat="s in resultados | orderBy:'titulo'">
                 <td>{{s.id}}</td>
+                <td>
+                    <span ng-if="s && s.urlPoster">
+                        <img src="{{s.urlPoster}}" width="100" alt="{{s.titulo}}" title="{{s.titulo}}" />
+                    </span>
+                </td>
                 <td>{{s.titulo}}</td>
                 <td>
                     <ul ng-repeat="g in s.generos | orderBy:'genero'">

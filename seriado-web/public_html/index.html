@@ -19,6 +19,7 @@
         <script src="js/CrudService.js"></script>
         <script src="js/genero-controller.js"></script>
         <script src="js/seriado-controller.js"></script>
+        <script src="js/autenticacao-controller.js"></script>
         
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -45,25 +46,40 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                                 <li>
-                                    <a href="#/seriado-pesquisar">Pesquisar</a>
+                                    <a href="#/seriado-pesquisar">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        Pesquisar
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="#/seriado-novo">Novo...</a>
+                                    <a href="#/seriado-novo">
+                                        <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+                                        Novo...
+                                    </a>
                                 </li>
                                 <li class="dropdown">
                                     <a href="" class="dropdown-toggle" data-toggle="dropdown">Demais Opções<strong class="caret"></strong></a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="#/genero-pesquisar">Gênero</a>
+                                            <a href="#/genero-pesquisar">
+                                                <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                                                Gênero
+                                            </a>
                                         </li>
                                         <li class="divider">
                                         <li>
-                                            <a href="#/">Relatório</a>
+                                            <a href="#/">
+                                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                                                Relatório
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#/">Logoff</a>
+                                    <a href="#/logon">
+                                        <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                                        Autenticação
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -74,7 +90,23 @@
             
             <div ng-view></div>
             
-        </div>
+            <!-- Modal onde as mensagens irão aparecer -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Mensagem</h4>
+                        </div>
+                        <div class="modal-body">
+                            Ação executada com sucesso!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <script src="components/jquery/dist/jquery.min.js"></script>
         <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>

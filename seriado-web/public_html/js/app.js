@@ -1,6 +1,7 @@
 angular.module('AppModule', ['ngRoute', 
     'SeriadoModule', 
-    'GeneroModule'
+    'GeneroModule',
+    'AutenticacaoModule'
 ])
 
 .controller('AppController', ['$scope', function($scope) {
@@ -37,6 +38,15 @@ angular.module('AppModule', ['ngRoute',
         when('/genero-editar/:id', {
             templateUrl: 'partials/genero-editar.html',
             controller: 'GeneroController'
+        }).
+        /* ********** LOGON/LOGOFF ****************** */
+        when('/logon', {
+            templateUrl: 'partials/logon.html',
+            controller: 'AutenticacaoController'
+        }).
+        when('/logoff', {
+            templateUrl: 'partials/logoff.html',
+            controller: 'AutenticacaoController'
         }).
         /* ********** PADRÃO ****************** */
         when('/', {

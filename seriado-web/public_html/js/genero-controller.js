@@ -2,25 +2,27 @@ angular.module('GeneroModule', ['CrudServiceModule'])
 
 .controller('GeneroController', ['$scope', 'CrudService', '$routeParams', function($scope, CrudService, $routeParams) {
 
+    $scope.url = 'http://localhost:8080/seriado-model/rest/generos';
+
     $scope.objeto = { genero: '' };
     $scope.resultados;
     $scope.idEdicao = $routeParams.id;
 
     $scope.salvar = function() {
-        CrudService.salvar($scope.objeto, function(location) {
+        CrudService.salvar($scope.url, $scope.objeto, function(location) {
             console.log(location);
             CrudService.geraMensagemDefault();
         });
     }
     
     $scope.pesquisar = function() {
-        CrudService.pesquisar(angular.toJson($scope.objeto), function(data) {
+        CrudService.pesquisar($scope.url, angular.toJson($scope.objeto), function(data) {
             $scope.resultados = data;
         });
     }
 
     $scope.excluir = function(obj) {
-        CrudService.excluir(obj.id, function() {
+        CrudService.excluir($scope.url, obj.id, function() {
             $scope.limpar();
             CrudService.geraMensagemDefault();
         });
@@ -29,17 +31,17 @@ angular.module('GeneroModule', ['CrudServiceModule'])
     $scope.limpar = function() {
         $scope.objeto = { genero:'' };
         $scope.resultados = null;
-        $scope.pesquisar();
+        $scope.pesquisar();        
     }
 
     $scope.consultar = function(id) {
-        CrudService.consultar(id, function(obj) {
+        CrudService.consultar($scope.url, id, function(obj) {
             $scope.objeto = obj;
         });
     }
 
     $scope.alterar = function() {
-        CrudService.alterar($scope.objeto, function(location) {
+        CrudService.alterar($scope.url, $scope.objeto, function(location) {
             console.log(location);
             CrudService.geraMensagemDefault();
         });
@@ -50,9 +52,6 @@ angular.module('GeneroModule', ['CrudServiceModule'])
         // consulta seus dados e atribui ao objeto
         $scope.consultar($scope.idEdicao);
     }
-
-    // definindo padrão de chamada
-    CrudService.init('http://localhost:8080/seriado-model/rest/generos');
 
     /*
      * Método utilizado para ajudar a marcar os
@@ -66,8 +65,6 @@ angular.module('GeneroModule', ['CrudServiceModule'])
         }
         return false;
     }
-        
-    $scope.limpar();
 }])
 
 ;
