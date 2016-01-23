@@ -1,0 +1,4 @@
+{
+  "/seriado-model/rest/": "/",
+  "/seriado-model/rest/:resource/search/:json":"/:resource?q=:json"
+}
