@@ -66,10 +66,10 @@ angular.module('CrudServiceModule', [])
         });        
     }
 
-    this.pesquisar = function(serviceURL, jsonObject, fn) {
-        console.log(jsonObject);
+    this.pesquisar = function(serviceURL, value, fn) {
+        console.log(value);
 
-        $http.get(serviceURL + "/search/" + jsonObject)
+        $http.get(serviceURL + "?q=" + value)
             .success(function (data) {
                 console.log(data);
                 fn(data);

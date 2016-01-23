@@ -27,7 +27,7 @@ angular.module('SeriadoModule', ['CrudServiceModule'])
     }
 
     $scope.pesquisar = function() {
-        CrudService.pesquisar($scope.url, angular.toJson($scope.objeto), function(data) {
+        CrudService.pesquisar($scope.url, $scope.objeto.titulo, function(data) {
             $scope.resultados = data;            
         });
     }
@@ -61,7 +61,7 @@ angular.module('SeriadoModule', ['CrudServiceModule'])
 
     $scope.listarGeneros = function() {
         CrudService.pesquisar('http://localhost:8080/seriado-model/rest/generos', 
-            angular.toJson({genero: ''}), function(data) {
+            "", function(data) {
             $scope.generosSelecionados.opcoesDisponiveis = data;
         });
     }

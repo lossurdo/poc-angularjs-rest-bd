@@ -16,7 +16,7 @@ angular.module('GeneroModule', ['CrudServiceModule'])
     }
     
     $scope.pesquisar = function() {
-        CrudService.pesquisar($scope.url, angular.toJson($scope.objeto), function(data) {
+        CrudService.pesquisar($scope.url, $scope.objeto.genero, function(data) {
             $scope.resultados = data;
         });
     }
