@@ -59,6 +59,7 @@ public class GeneroRN extends CrudGenericoRN<Genero> {
     
     @Override
     public List<Genero> pesquisar(String valor) {
+        valor = avaliarPesquisar(valor);
         return crudBD.pesquisar(valor);
     }
     

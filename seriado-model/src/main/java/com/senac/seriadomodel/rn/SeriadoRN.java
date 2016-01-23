@@ -59,6 +59,7 @@ public class SeriadoRN extends CrudGenericoRN<Seriado> {
 
     @Override
     public List<Seriado> pesquisar(String valor) {
+        valor = avaliarPesquisar(valor);
         return crudBD.pesquisar(valor);
     }
      

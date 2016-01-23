@@ -39,14 +39,8 @@ public abstract class CrudGenericoRest<T> {
     public abstract Response consultarPK(@PathParam(value = "pk") String pk);
 
     @GET
-    @Path("/search/{json}")
     @Produces(value = MediaType.APPLICATION_JSON)
-    public abstract Response pesquisar(@PathParam(value = "json") String json);
-
-    @GET
-    @Produces(value = MediaType.APPLICATION_JSON)
-    public abstract Response listar(@QueryParam("offset") Integer offset,
-            @QueryParam("limit") Integer limit);
+    public abstract Response pesquisar(@QueryParam(value = "q") String q);
 
     @DELETE
     @Path("{pk}")

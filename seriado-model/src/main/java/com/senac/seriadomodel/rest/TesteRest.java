@@ -1,6 +1,5 @@
 package com.senac.seriadomodel.rest;
 
-import com.google.gson.Gson;
 import com.senac.seriadomodel.bean.Teste;
 import com.senac.seriadomodel.crud.CrudGenericoRest;
 import com.senac.seriadomodel.crud.RNException;
@@ -31,24 +30,11 @@ public class TesteRest extends CrudGenericoRest<Teste> {
     }
 
     @Override
-    public Response pesquisar(String json) {
+    public Response pesquisar(String q) {
         try {
-            Gson g = new Gson();
-            Teste m = g.fromJson(json, Teste.class);
-
-            List<Teste> ret = rn.pesquisar(m);
+            List<Teste> ret = rn.pesquisar(q);
 
             return gerarResponseParaCollection(ret);    
-        } catch (RNException e) {
-            return exceptionParaResponse(e);
-        }
-    }
-
-    @Override
-    public Response listar(Integer offset, Integer limit) {
-        try {
-            List<Teste> ret = rn.pesquisar("");
-            return gerarResponseParaCollection(ret);
         } catch (RNException e) {
             return exceptionParaResponse(e);
         }

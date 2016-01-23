@@ -42,6 +42,7 @@ public class TesteRN extends CrudGenericoRN<Teste> {
     
     @Override
     public List<Teste> pesquisar(String valor) {
+        valor = avaliarPesquisar(valor);
         return crudBD.namedQuery("findAll");
     }
 

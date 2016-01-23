@@ -17,9 +17,12 @@ public abstract class CrudGenericoRN<T> implements CrudGenerico<T> {
     protected void avaliarAlterar(CrudGenerico crudGenerico, Object object) {
         avaliarConsultar(crudGenerico, object);
     }
-    
+
     protected void avaliarExcluir(CrudGenerico crudGenerico, Object object) {
         avaliarConsultar(crudGenerico, object);
     }
 
+    protected String avaliarPesquisar(String valor) {
+        return (valor == null || "null".equalsIgnoreCase(valor)) ? "" : valor;
+    }
 }
