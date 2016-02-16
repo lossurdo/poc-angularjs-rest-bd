@@ -1,5 +1,6 @@
 package com.senac.seriadomodel.crud;
 
+import com.google.gson.Gson;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -80,12 +81,27 @@ public abstract class CrudGenericoRest<T> {
      */
     protected Response exceptionParaResponse(RNException exception) {
         if (exception.getTipo().equals(RNException.Tipo.REGISTRO_JA_EXISTE)) {
-            return Response.status(Response.Status.CONFLICT).build();
+            return Response.status(Response.Status.CONFLICT)
+                .entity(toJSON(new ErroRest(exception.getTipo().toString())))
+                .build();
         } else if (exception.getTipo().equals(RNException.Tipo.REGISTRO_NAO_ENCONTRADO)) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.NOT_FOUND)
+                .entity(toJSON(new ErroRest(exception.getTipo().toString())))
+                .build();
         }
 
-        return Response.serverError().build();                
+        return Response.serverError()
+            .entity(toJSON(new ErroRest(exception.getMessage())))
+            .build();                
     }
 
+    /**
+     * Converte um objeto qualquer em formato JSON
+     * 
+     * @param object
+     * @return 
+     */
+    protected String toJSON(Object object) {
+        return new Gson().toJson(object);
+    }
 }

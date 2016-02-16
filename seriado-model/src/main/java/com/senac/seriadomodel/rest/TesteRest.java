@@ -2,6 +2,7 @@ package com.senac.seriadomodel.rest;
 
 import com.senac.seriadomodel.bean.Teste;
 import com.senac.seriadomodel.crud.CrudGenericoRest;
+import com.senac.seriadomodel.crud.ErroRest;
 import com.senac.seriadomodel.crud.RNException;
 import com.senac.seriadomodel.rn.TesteRN;
 import java.net.URI;
@@ -75,7 +76,9 @@ public class TesteRest extends CrudGenericoRest<Teste> {
     @Override
     protected Response gerarResponseParaCollection(List<Teste> obj) {
         if (obj == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.NOT_FOUND)
+                .entity(toJSON(new ErroRest("Nenhum registro disponível; lista vazia")))
+                .build();
         }
 
         GenericEntity<List<Teste>> lista = new GenericEntity<List<Teste>>(obj) {
