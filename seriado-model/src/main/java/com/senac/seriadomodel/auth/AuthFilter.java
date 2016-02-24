@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ * JSON Web Tokens - RFC 7519
  * @see https://jwt.io/ e https://github.com/auth0/java-jwt
  * @author lossurdo 
  */
@@ -34,6 +34,20 @@ public class AuthFilter implements ContainerRequestFilter, ContainerResponseFilt
     @Context
     private HttpServletRequest servletRequest;
 
+    /**
+     * Aplica o filtro no REQUEST aos web services RESTful.
+     * 
+     * - Valida o payload identificando se o IP empacotado
+     * possui o mesmo IP de onde se origina as chamadas do REQUEST.
+     * - Valida o payload identificando se a data empacotada
+     * está dentro do período de 30min da sua geração. Renovando-a.
+     * 
+     * - Qualquer situação diferente das expostas acima causam
+     * uma exceção na execução do web service RESTful, não permitindo
+     * sua execução.
+     * 
+     * @param requestContext 
+     */
     @Override
     public void filter(ContainerRequestContext requestContext) {
         logger.debug("Filtrando REQUEST da chamada REST");
@@ -70,6 +84,14 @@ public class AuthFilter implements ContainerRequestFilter, ContainerResponseFilt
         
     }
 
+    /**
+     * Quando informado USUARIO/SENHA no HEADER da chamada HTTP,
+     * faz a validação destes, empacotando o payload, gerando o 
+     * Token e adicionando-o ao RESPONSE do HTTP.
+     * 
+     * @param requestContext
+     * @param responseContext 
+     */
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
         logger.debug("Filtrando REQUEST/RESPONSE da chamada REST");
