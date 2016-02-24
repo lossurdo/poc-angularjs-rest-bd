@@ -6,7 +6,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- *
+ * Esta classe é responsável por armazenar os tokens já
+ * distribuídos nas autenticações e conferir se estão
+ * válidos (expiração por data/hora).
+ * 
  * @author lossurdo
  */
 class TokenControl {
