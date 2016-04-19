@@ -122,6 +122,8 @@
                             <overWriteReleases>false</overWriteReleases>
                             <overWriteSnapshots>false</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
+                            <excludeTransitive>true</excludeTransitive>
+                            <includeScope>runtime</includeScope>
                         </configuration>
                     </execution>
                 </executions>
