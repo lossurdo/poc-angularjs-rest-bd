@@ -1,5 +1,6 @@
 package com.senac.seriadomodel.rest;
 
+import com.google.gson.Gson;
 import com.senac.seriadomodel.bean.Teste;
 import com.senac.seriadomodel.crud.CrudGenericoRest;
 import com.senac.seriadomodel.crud.ErroRest;
@@ -8,7 +9,6 @@ import com.senac.seriadomodel.rn.TesteRN;
 import java.net.URI;
 import java.util.List;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
 @Path("/testes")
@@ -52,9 +52,9 @@ public class TesteRest extends CrudGenericoRest<Teste> {
     }
 
     @Override
-    public Response salvar(Teste obj) {
+    public Response salvar(String obj) {
         try {
-            Teste o = rn.salvar(obj);
+            Teste o = rn.salvar(new Gson().fromJson(obj, Teste.class));
             URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(o.getId())).build();
             return Response.created(uri).build();
         } catch (RNException e) {
@@ -63,9 +63,9 @@ public class TesteRest extends CrudGenericoRest<Teste> {
     }
 
     @Override
-    public Response alterar(Teste obj) {
+    public Response alterar(String obj) {
         try {
-            Teste o = rn.alterar(obj);
+            Teste o = rn.alterar(new Gson().fromJson(obj, Teste.class));
             URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(o.getId())).build();
             return Response.created(uri).build();
         } catch (RNException e) {
@@ -81,9 +81,7 @@ public class TesteRest extends CrudGenericoRest<Teste> {
                 .build();
         }
 
-        GenericEntity<List<Teste>> lista = new GenericEntity<List<Teste>>(obj) {
-        };
-        return Response.ok(lista).build();
+        return Response.ok(new Gson().toJson(obj)).build();
     }
 
 }

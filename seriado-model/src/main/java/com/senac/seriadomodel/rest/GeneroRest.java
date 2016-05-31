@@ -1,6 +1,8 @@
 package com.senac.seriadomodel.rest;
 
+import com.google.gson.Gson;
 import com.senac.seriadomodel.bean.Genero;
+import com.senac.seriadomodel.bean.Seriado;
 import com.senac.seriadomodel.crud.CrudGenericoRest;
 import com.senac.seriadomodel.crud.ErroRest;
 import com.senac.seriadomodel.crud.RNException;
@@ -8,7 +10,6 @@ import com.senac.seriadomodel.rn.GeneroRN;
 import java.net.URI;
 import java.util.List;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
 /**
@@ -38,6 +39,17 @@ public class GeneroRest extends CrudGenericoRest<Genero> {
     public Response pesquisar(String q) {
         try {
             List<Genero> ret = rn.pesquisar(q);
+            
+            /*
+                Remove a lista circular; seriado aponta pra gênero
+                e gênero aponta pra seriado; Gson gera exceção.
+            */
+            for (Genero genero : ret) {
+                for(Seriado seriado : genero.getSeriados()) {
+                    seriado.setGeneros(null);
+                }
+            }            
+            
             return gerarResponseParaCollection(ret);
         } catch (RNException e) {
             return exceptionParaResponse(e);
@@ -55,9 +67,9 @@ public class GeneroRest extends CrudGenericoRest<Genero> {
     }
 
     @Override
-    public Response salvar(Genero obj) {
+    public Response salvar(String obj) {
         try {
-            Genero o = rn.salvar(obj);
+            Genero o = rn.salvar(new Gson().fromJson(obj, Genero.class));
             URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(o.getId())).build();
             return Response.created(uri).build();
         } catch (RNException e) {
@@ -66,9 +78,9 @@ public class GeneroRest extends CrudGenericoRest<Genero> {
     }
 
     @Override
-    public Response alterar(Genero obj) {
+    public Response alterar(String obj) {
         try {
-            Genero o = rn.alterar(obj);
+            Genero o = rn.alterar(new Gson().fromJson(obj, Genero.class));
             URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(o.getId())).build();
             return Response.created(uri).build();
         } catch (RNException e) {
@@ -84,9 +96,7 @@ public class GeneroRest extends CrudGenericoRest<Genero> {
                 .build();
         }
 
-        GenericEntity<List<Genero>> lista = new GenericEntity<List<Genero>>(obj) {
-        };
-        return Response.ok(lista).build();
+        return Response.ok(new Gson().toJson(obj)).build();
     }
 
 }
