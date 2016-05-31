@@ -9,3 +9,6 @@ dependency-reduced-pom.xml
 buildNumber.properties
 /web/nbproject/private/
 /seriado-web/nbproject/private/
+/seriado-completo/nbproject/private/
+/seriado-completo/dist/
+/seriado-completo/build/

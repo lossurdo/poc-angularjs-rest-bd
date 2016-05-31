@@ -1,0 +1,48 @@
+<conteudo-interno>
+    <h1>Alterar Seriado</h1>
+    <button class="btn btn-primary" type="submit" form="frm" ng-click="alterar()">Alterar</button>
+    <button class="btn btn-default" type="reset" form="frm">Limpar</button>
+    <a href="#/seriado-pesquisar" class="btn btn-default">Pesquisar</a>
+    <hr />
+
+    <form id="frm">
+        <div class="form-group">
+            <label for="titulo">Título</label>
+            <input id="titulo" type="text" required="true" class="form-control" ng-model="objeto.titulo" placeholder="Ex. Game of Thrones">
+
+            <label for="sumario">Sumário</label>
+            <textarea id="sumario" class="form-control" ng-model="objeto.sumario"></textarea>
+
+            <label for="ano">Ano</label>
+            <input id="ano" type="number" class="form-control" ng-model="objeto.ano" placeholder="Ex. 2012">
+
+            <label for="poster">URL pôster</label>
+            <input id="poster" type="url" class="form-control" ng-model="objeto.urlPoster" placeholder="Ex. http://www.site.com.br/poster.jpg">
+
+            <label for="youtube">URL trailer YouTube</label>
+            <input id="youtube" type="url" class="form-control" ng-model="objeto.urlTrailerYoutube" placeholder="Ex. http://www.youtube.com/xxxx">
+
+            <label for="nota">Nota</label>
+            <input id="nota" type="text" class="form-control" ng-model="objeto.nota" placeholder="Ex. 8.7">
+
+            <label for="criadores">Criadores</label>
+            <textarea id="criadores" class="form-control" ng-model="objeto.criadores"></textarea>
+
+            <label for="elenco">Elenco</label>
+            <textarea id="elenco" class="form-control" ng-model="objeto.elenco"></textarea>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="1" ng-model="objeto.finalizado"> Seriado finalizado?
+                </label>
+            </div>
+
+            <label for="generos" ng-init="listarGeneros()">Gênero(s)</label>
+            <select id="generos" multiple class="form-control"
+                ng-options="reg.genero for reg in generosSelecionados.opcoesDisponiveis track by reg.id"
+                ng-model="generosSelecionados.opcoesSelecionadas">                      
+            </select>
+            
+        </div>
+    </form>
+</conteudo-interno>

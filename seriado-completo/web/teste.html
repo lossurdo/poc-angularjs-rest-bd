@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>AngularJS FSPOA</title>
+
+        <!-- AngularJS -->
+        <script src="components/angular/angular.min.js"></script>
+        <script src="js/CrudService.js"></script>
+        <script src="js/controller.js"></script>
+        
+        <!-- Bootstrap -->
+        <link href="components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap Material Design -->
+        <link href="components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css" rel="stylesheet">
+        <link href="components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
+    </head>
+    <body ng-controller="MeuController">
+        <div class="container">
+            <br /><br /><br />
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <form ng-submit="salvar()">
+                        Nome do seriado: 
+                        <input class="input-lg" type="text" ng-model="fields.nome" />                        
+                        <button class="btn-lg" type="submit">Salvar</button>
+                    </form>
+                                        
+                </div>
+                
+                <div class="col-md-12">                    
+                    <button class="btn-lg" type="button" ng-click="pesquisar()">Pesquisar</button>
+                    <pre>{{debug}}</pre>
+                </div>
+            </div>
+        </div>
+
+        <script src="components/jquery/dist/jquery.min.js"></script>
+        <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="components/bootstrap-material-design/dist/js/material.min.js"></script>
+        <script src="components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+        <script>$.material.init()</script>
+    </body>
+</html>

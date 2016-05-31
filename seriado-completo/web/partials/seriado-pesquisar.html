@@ -1,0 +1,50 @@
+<conteudo-interno>
+    <h1>Pesquisar Seriado</h1>
+    <button class="btn btn-primary" type="submit" form="frm" ng-click="pesquisar()">Pesquisar</button>
+    <button class="btn btn-default" type="reset" form="frm" ng-click="limpar()">Limpar</button>
+    <a href="#/seriado-novo" class="btn btn-default">Novo...</a>
+    <hr />
+
+    <form id="frm">
+        <div class="form-group">
+            <label for="pesq">Nome do seriado</label>
+            <input type="text" class="form-control" ng-model="objeto.titulo" id="pesq" placeholder="Ex. Game of Thrones">
+        </div>
+    </form>
+</conteudo-interno>
+
+<conteudo-interno ng-if="resultados.length > 0">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Pôster</th>
+                <th>Título</th>
+                <th>Gênero(s)</th>
+                <th>Avaliação</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="s in resultados | orderBy:'titulo'">
+                <td>{{s.id}}</td>
+                <td>
+                    <span>                        
+                        <img ng-src="{{s.urlPoster}}" width="100" alt="{{s.titulo}}" title="{{s.titulo}}" />
+                    </span>
+                </td>
+                <td>{{s.titulo}}</td>
+                <td>
+                    <ul ng-repeat="g in s.generos | orderBy:'genero'">
+                        <li>{{g.genero}}</li>
+                    </ul>
+                </td>
+                <td><avaliacao-seriado nota="{{s.nota}}" /></td>
+                <td class="pull-right">
+                    <a ng-href="#/seriado-editar/{{s.id}}" class="btn btn-default">Alterar</a>
+                    <button class="btn btn-warning" ng-click="excluir(s)">Excluir</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</conteudo-interno>
