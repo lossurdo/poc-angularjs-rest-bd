@@ -26,11 +26,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="s in resultados | orderBy:'titulo'">
+            <tr ng-repeat="s in resultados">
                 <td>{{s.id}}</td>
                 <td>
-                    <span ng-if="s && s.urlPoster">
-                        <img src="{{s.urlPoster}}" width="100" alt="{{s.titulo}}" title="{{s.titulo}}" />
+                    <span>                        
+                        <img ng-src="{{s.urlPoster}}" width="100" alt="{{s.titulo}}" title="{{s.titulo}}" />
                     </span>
                 </td>
                 <td>{{s.titulo}}</td>
