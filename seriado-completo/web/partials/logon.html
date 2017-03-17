@@ -1,15 +1,26 @@
 <conteudo-interno>
     <h1>Autenticação</h1>
-    <button class="btn btn-primary" type="submit" form="frm">Autenticar</button>
+    <button class="btn btn-primary" type="submit" form="frm" ng-click="autenticar()">Autenticar</button>
     <a href="#/logoff" class="btn btn-default">Logoff</a>
     <hr />
 
     <form id="frm">
         <div class="form-group">
             <label for="username">Nome do usuário</label>
-            <input type="text" class="form-control" id="username" placeholder="Ex. john.doe">
+            <input type="text" class="form-control" id="username" placeholder="Ex. john.doe" ng-model="username">
             <label for="password">Senha de acesso</label>
-            <input type="password" class="form-control" id="password">
+            <input type="password" class="form-control" id="password" ng-model="password">
+            
+            <div ng-show="token!==''">
+                <label for="token">Token gerado</label>
+                <textarea type="text" class="form-control" ng-model="token"></textarea>
+                
+                <button class="btn btn-info" type="button" form="frm" ng-click="enviandoToken()">Teste de Consulta usando Token...</button>
+                <div ng-show="consulta">
+                    <h2>Funcionou!!</h2>
+                    <pre>{{consulta}}</pre>
+                </div>
+            </div>
         </div>
     </form>
 </conteudo-interno>
