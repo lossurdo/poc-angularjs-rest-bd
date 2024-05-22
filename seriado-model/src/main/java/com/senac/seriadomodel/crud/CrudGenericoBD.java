@@ -3,11 +3,12 @@ package com.senac.seriadomodel.crud;
 import com.senac.seriadomodel.infra.Propriedades;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.Persistence;
-import org.apache.log4j.Logger;
+
 
 /**
  * Classe de persistência genérica para os beans utilizados no projeto.
@@ -16,21 +17,21 @@ import org.apache.log4j.Logger;
  */
 public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
 
-    private static final Logger logger = Logger.getLogger(CrudGenericoBD.class);
+    private static final Logger logger = Logger.getLogger(CrudGenericoBD.class.getName());
     
     protected EntityManager createEntityManager() {
-        logger.debug("Estabelecendo conexão com o banco de dados via JPA");
+        logger.info("Estabelecendo conexão com o banco de dados via JPA");
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(
                 Propriedades.getInstance().get("persistenceUnitName")
         );
         EntityManager em = emf.createEntityManager();
-        logger.debug("Conexão estabelecida com sucesso");
+        logger.info("Conexão estabelecida com sucesso");
         return em;
     }
     
     @Override
     public T salvar(T bean) {
-        logger.debug("Salvando " + bean);
+        logger.info("Salvando " + bean);
         EntityManager em = createEntityManager();
         try {
             em.getTransaction().begin();        
@@ -45,7 +46,7 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
 
     @Override
     public T alterar(T bean) {
-        logger.debug("Alterando " + bean);
+        logger.info("Alterando " + bean);
         EntityManager em = createEntityManager();
         try {
             em.getTransaction().begin();        
@@ -59,7 +60,7 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
 
     @Override
     public boolean excluir(T bean) {
-        logger.debug("Excluindo " + bean);
+        logger.info("Excluindo " + bean);
         EntityManager em = createEntityManager();
         try {
             T obj = (T) em.getReference(bean.getClass(), descobrirValorPK(bean));
@@ -76,7 +77,7 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
 
     @Override
     public T consultar(T bean) {
-        logger.debug("Consultando " + bean);
+        logger.info("Consultando " + bean);
         EntityManager em = createEntityManager();
         try {
             Object valorPK = descobrirValorPK(bean);
@@ -122,7 +123,7 @@ public abstract class CrudGenericoBD<T> implements CrudGenerico<T> {
             if (f.isAnnotationPresent(Id.class)) {
                 f.setAccessible(true);
                 Object valorPK = f.get(bean);
-                logger.debug("Valor PK encontrado: " + valorPK);
+                logger.info("Valor PK encontrado: " + valorPK);
                 return valorPK;
             }
         }
