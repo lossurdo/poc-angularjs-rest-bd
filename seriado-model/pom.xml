@@ -4,7 +4,7 @@
 
     <groupId>com.senac</groupId>
     <artifactId>seriado-model</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>war</packaging>
 
     <name>seriado-model</name>
@@ -22,20 +22,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jersey.version>1.19</jersey.version>
         <eclipselink>2.5.2</eclipselink>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
     
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.16</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.13</version>
+            <version>8.0.33</version>
         </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
@@ -81,8 +76,7 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.8.9</version>
-            <type>jar</type>
+            <version>2.11.0</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -96,9 +90,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>1.9.2</version>            
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.17.1</version>
         </dependency>
     </dependencies>
 
